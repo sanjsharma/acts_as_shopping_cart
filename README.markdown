@@ -192,11 +192,3 @@ Run cucumber features
 Both:
 
     rake
-
-# About the author
-
-[Crowd Interactive](http://www.crowdint.com) is a leading Ruby and Rails
-consultancy firm based in Mexico currently doing business with startups in the
-United States. We specialize in building and growing Rails applications, by increasing
-your IT crew onsite or offsite. We pick our projects carefully, as we only work
-with companies we believe in.

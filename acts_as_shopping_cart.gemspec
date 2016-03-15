@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name        = "acts_as_shopping_cart"
   s.version     = ActsAsShoppingCart::VERSION
   s.authors     = ["David Padilla"]
-  s.email       = ["david@crowdint.com"]
+  s.email       = ["david@padilla.io"]
   s.homepage    = ""
   s.summary     = "Simple Shopping Cart implementation"
   s.description = "Simple Shopping Cart implementation"
