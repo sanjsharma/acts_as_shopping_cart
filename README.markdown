@@ -5,6 +5,7 @@ A simple shopping cart implementation.
 [![Build Status](https://secure.travis-ci.org/dabit/acts_as_shopping_cart.png?branch=master)](http://travis-ci.org/dabit/acts_as_shopping_cart)
 [![Code Climate](https://codeclimate.com/github/dabit/acts_as_shopping_cart/badges/gpa.svg)](https://codeclimate.com/github/dabit/acts_as_shopping_cart)
 [![Test Coverage](https://codeclimate.com/github/dabit/acts_as_shopping_cart/badges/coverage.svg)](https://codeclimate.com/github/dabit/acts_as_shopping_cart/coverage)
+[![Gem Version](https://badge.fury.io/rb/acts_as_shopping_cart.svg)](https://badge.fury.io/rb/acts_as_shopping_cart)
 
 You can find an example application [here](https://github.com/dabit/acts_as_shopping_cart_app).
 
