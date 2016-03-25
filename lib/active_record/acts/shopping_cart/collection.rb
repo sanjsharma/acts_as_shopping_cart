@@ -26,11 +26,19 @@ module ActiveRecord
         end
 
         #
+        # Returns true when the cart has items
+        #
+        def has_items?
+          shopping_cart_items.any?
+        end
+
+        #
         # Returns true when the cart is empty
         #
-        def empty?
+        def has_no_items?
           shopping_cart_items.empty?
         end
+
 
         #
         # Remove an item from the cart

@@ -77,24 +77,42 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
 
     it "clears all the items in the cart" do
       subject.clear
-      expect(subject.empty?).to be true
+      expect(subject.has_no_items?).to be true
     end
   end
 
-  describe "empty?" do
+  describe "has_items?" do
+    context "cart has items" do
+      before do
+        subject.shopping_cart_items << double
+      end
+
+      it "returns true" do
+        expect(subject.has_items?).to be true
+      end
+    end
+
+    context "cart is empty" do
+      it "returns false" do
+        expect(subject.has_items?).to be false
+      end
+    end
+  end
+
+  describe "has_no_items?" do
     context "cart has items" do
       before do
         subject.shopping_cart_items << double
       end
 
       it "returns false" do
-        expect(subject.empty?).to be false
+        expect(subject.has_no_items?).to be false
       end
     end
 
     context "cart is empty" do
       it "returns true" do
-        expect(subject.empty?).to be true
+        expect(subject.has_no_items?).to be true
       end
     end
   end

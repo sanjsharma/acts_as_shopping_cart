@@ -39,7 +39,7 @@ end
 
 Then /^cart should be empty$/ do
   @cart.reload
-  expect(@cart).to be_empty
+  expect(@cart.has_no_items?).to be true
 end
 
 Given /^I add (\d+) "([^"]*)" products to cart with price "([^"]*)"$/ do |quantity, product_name, price|
