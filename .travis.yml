@@ -6,5 +6,7 @@ rvm:
   - 2.3.0
 
 gemfile:
+  - Gemfile.4.0
+  - Gemfile.4.1
   - Gemfile.4.2
   - Gemfile.5.0
