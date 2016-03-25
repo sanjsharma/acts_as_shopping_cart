@@ -152,7 +152,7 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
 
       it "returns the sum of the price * quantity for all items" do
         expect(subject.subtotal).to be_an_instance_of(Money)
-        expect(subject.subtotal).to eq(113.97)
+        expect(subject.subtotal).to eq(Money.new(11397))
       end
     end
   end
@@ -160,7 +160,7 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
   describe :shipping_cost do
     it "returns 0" do
       expect(subject.shipping_cost).to be_an_instance_of Money
-      expect(subject.shipping_cost).to eq(0)
+      expect(subject.shipping_cost).to eq(Money.new(0))
     end
   end
 
@@ -172,7 +172,7 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
 
       it "returns 8.25" do
         expect(subject.taxes).to be_an_instance_of Money
-        expect(subject.taxes).to eq(8.25)
+        expect(subject.taxes).to eq(Money.new(825))
       end
     end
   end
@@ -194,7 +194,7 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
 
     it "returns subtotal + taxes + shipping_cost" do
       expect(subject.total).to be_an_instance_of Money
-      expect(subject.total).to eq(37.97)
+      expect(subject.total).to eq(Money.new(3797))
     end
   end
 

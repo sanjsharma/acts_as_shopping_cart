@@ -4,12 +4,12 @@ end
 
 Then /^the total for the cart should be "([^"]*)"$/ do |total|
   @cart.reload
-  @cart.total.should eq(Money.new(total.to_f * 100))
+  expect(@cart.total).to eq(Money.new(total.to_f * 100))
 end
 
 Then /^the subtotal for the cart should be "([^"]*)"$/ do |subtotal|
   @cart.reload
-  @cart.subtotal.should eq(Money.new(subtotal.to_f * 100))
+  expect(@cart.subtotal).to eq(Money.new(subtotal.to_f * 100))
 end
 
 When /^I add product "([^"]*)" to cart with price "([^"]*)"$/ do |product_name, price|
@@ -24,7 +24,7 @@ end
 
 Then /^the total unique items on the cart should be "([^"]*)"$/ do |total|
   @cart.reload
-  @cart.total_unique_items.should eq(total.to_i)
+  expect(@cart.total_unique_items).to eq(total.to_i)
 end
 
 When /^I remove (\d+) "([^"]*)" unit(s?) from cart$/ do |quantity, product_name, _|
@@ -39,7 +39,7 @@ end
 
 Then /^cart should be empty$/ do
   @cart.reload
-  @cart.should be_empty
+  expect(@cart).to be_empty
 end
 
 Given /^I add (\d+) "([^"]*)" products to cart with price "([^"]*)"$/ do |quantity, product_name, price|
@@ -50,19 +50,19 @@ end
 Then /^the subtotal for "([^"]*)" on the cart should be "([^"]*)"$/ do |product_name, subtotal|
   @cart.reload
   product = Product.find_by_name(product_name)
-  @cart.subtotal_for(product).should eq(subtotal.to_f)
+  expect(@cart.subtotal_for(product)).to eq(subtotal.to_f)
 end
 
 Then /^the quantity for "([^"]*)" on the cart should be "([^"]*)"$/ do |product_name, quantity|
   @cart.reload
   product = Product.find_by_name(product_name)
-  @cart.quantity_for(product).should eq(quantity.to_f)
+  expect(@cart.quantity_for(product)).to eq(quantity.to_f)
 end
 
 Then /^the price for "([^"]*)" on the cart should be "([^"]*)"$/ do |product_name, price|
   @cart.reload
   product = Product.find_by_name(product_name)
-  @cart.price_for(product).should eq(price.to_f)
+  expect(@cart.price_for(product)).to eq(Money.from_amount(price.to_f))
 end
 
 When /^I update the "([^"]*)" quantity to "([^"]*)"$/ do |product_name, quantity|
@@ -80,5 +80,5 @@ end
 Then /^shopping cart item "([^"]*)" should belong to cart$/ do |_|
   @cart.reload
   shopping_cart_item = ShoppingCartItem.last
-  shopping_cart_item.owner.should == @cart
+  expect(shopping_cart_item.owner).to eq @cart
 end
