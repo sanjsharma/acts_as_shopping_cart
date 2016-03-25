@@ -2,11 +2,11 @@
 
 A simple shopping cart implementation.
 
-[![Build Status](https://secure.travis-ci.org/crowdint/acts_as_shopping_cart.png?branch=master)](http://travis-ci.org/crowdint/acts_as_shopping_cart)
-[![Code Climate](https://codeclimate.com/github/crowdint/acts_as_shopping_cart/badges/gpa.svg)](https://codeclimate.com/github/crowdint/acts_as_shopping_cart)
-[![Test Coverage](https://codeclimate.com/github/crowdint/acts_as_shopping_cart/badges/coverage.svg)](https://codeclimate.com/github/crowdint/acts_as_shopping_cart/coverage)
+[![Build Status](https://secure.travis-ci.org/dabit/acts_as_shopping_cart.png?branch=master)](http://travis-ci.org/dabit/acts_as_shopping_cart)
+[![Code Climate](https://codeclimate.com/github/dabit/acts_as_shopping_cart/badges/gpa.svg)](https://codeclimate.com/github/dabit/acts_as_shopping_cart)
+[![Test Coverage](https://codeclimate.com/github/dabit/acts_as_shopping_cart/badges/coverage.svg)](https://codeclimate.com/github/dabit/acts_as_shopping_cart/coverage)
 
-You can find an example application [here](https://github.com/crowdint/acts_as_shopping_cart_app).
+You can find an example application [here](https://github.com/dabit/acts_as_shopping_cart_app).
 
 ## Install
 
@@ -17,7 +17,7 @@ if you still need to implement this gem in a Rails 3 app**
 
 Include it in your Gemfile
 
-    gem 'acts_as_shopping_cart', :github => 'crowdint/acts_as_shopping_cart', :branch => '0-1-x'
+    gem 'acts_as_shopping_cart', :github => 'dabit/acts_as_shopping_cart', :branch => '0-1-x'
 
 And run bundler
 
