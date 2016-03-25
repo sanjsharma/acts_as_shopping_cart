@@ -28,7 +28,7 @@ And run bundler
 
 Just include it in your Gemfile as:
 
-    gem 'acts_as_shopping_cart', '~> 0.2.1'
+    gem 'acts_as_shopping_cart', '~> 0.4.0'
 
 And run bundle install
 
@@ -36,7 +36,7 @@ And run bundle install
 
 ## Usage
 
-You need two models, one to hold the Shopping Carts and another to hold the Items
+You need two models, one to hold the `Shopping Carts` and another to hold the `Items`
 
 You can use any name for the models, you just have to let each model know about each other.
 
@@ -55,8 +55,8 @@ For the items:
       acts_as_shopping_cart_item_for :cart
     end
 
-or, if you want to use convention over configuration, make sure your models are called *ShoppingCart* and *ShoppingCartItem*,
-then just use the shortcuts:
+or, if you want to use convention over configuration, make sure your models are
+named `ShoppingCart` and `ShoppingCartItem`, then just use the shortcuts:
 
     class ShoppingCart < ActiveRecord::Base
       acts_as_shopping_cart
@@ -76,14 +76,15 @@ In order for this to work, the Shopping Cart Item model should have the followin
 
 ### Shopping Cart Items
 
-Your ShoppingCart class will have a _shopping_cart_items_ association
-that returns all the ShoppingCartItem objects in your cart.
+Your `ShoppingCart` class will have a `shopping_cart_items` association
+that returns all the `ShoppingCartItem` objects in your cart.
 
 ### Add Items
 
-To add an item to the cart you use the add method. You have to send the object and the price of the object as parameters.
+To add an item to the cart you use the add method. You have to send the object
+and the price of the object as parameters.
 
-So, if you had a Product class, you would do something like this:
+So, if you had a `Product` class, you would do something like this:
 
     @cart = Cart.create
     @product = Product.find(1)
@@ -94,38 +95,41 @@ In the case where your product has a price field you could do something like:
 
     @cart.add(@product, @product.price)
 
-I tried to make it independent to the models in case you calculate discounts, sale prices or anything customized.
+I tried to make it independent to the models in case you calculate discounts,
+sale prices or anything customized.
 
 You can include a quantity parameter too.
 
     @cart.add(@product, 99.99, 5)
 
-In that case, you would add 5 of the same products to the shopping cart. If you don't specify the quantity 1 will be assumed.
+In that case, you would add 5 of the same products to the shopping cart. If you
+don't specify the quantity `1` will be assumed.
 
 ### Remove Items
 
-To remove an item from the cart you can use the remove method. You just have to send the object and the quantity you want to remove.
+To remove an item from the cart you can use the remove method. You just have to
+send the object and the quantity you want to remove.
 
     @cart.remove(@product, 1)
 
 ### Empty the cart
 
-To remove all the items in the cart at once, just use the _clear_ method
+To remove all the items in the cart at once, just use the `clear` method
 
     @cart.clear
 
 ### Total
 
-You can find out about the total using the _total_ method:
+You can find out about the total using the `total` method:
 
     @cart.total # => 99.99
 
 ### Taxes
 
-Taxes by default are calculated by multiplying subtotal times 8.25
+Taxes by default are calculated by multiplying subtotal times `8.25`
 
-If you want to change the way taxes are calculated, override the taxes
-method on your class that acts_as_shopping_cart.
+If you want to change the way taxes are calculated, override the `taxes`
+method on your class that `acts_as_shopping_cart`.
 
 Example:
 
@@ -137,7 +141,7 @@ Example:
       end
     end
 
-If you just want to update the percentage, just override the tax_pct
+If you just want to update the `percentage`, override the `tax_pct`
 method.
 
     class ShoppingCart < ActiveRecord::Base
@@ -164,9 +168,9 @@ class depending on your needs.
 
 ### Total unique items
 
-You can find out how many unique items you have on your cart using the _total_unique_items_ method.
+You can find out how many unique items you have on your cart using the `total_unique_items` method.
 
-So, if you had something like:
+So, if you have something like:
 
     @cart.add(@product, 99.99, 5)
 
