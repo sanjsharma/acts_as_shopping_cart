@@ -9,62 +9,62 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
 
   let(:subject) do
     subject = klass.new
-    subject.stub(:shopping_cart_items).and_return([])
+    allow(subject).to receive(:shopping_cart_items).and_return([])
     subject
   end
 
-  let(:object) { stub }
+  let(:object) { double }
 
   let(:shopping_cart_item) do
-    stub(quantity: 2, save: true)
+    instance_double("shopping_cart_item", quantity: 2, save: true)
   end
 
   describe :add do
     context "item is not on cart" do
       before do
-        subject.stub(:item_for).with(object)
+        allow(subject).to receive(:item_for).with(object)
       end
 
       it "creates a new shopping cart item" do
-        created_object = mock
-        subject.shopping_cart_items.should_receive(:create)
+        created_object = double
+        expect(subject.shopping_cart_items).to receive(:create)
           .with(item: object, price: 19.99, quantity: 3)
           .and_return(created_object)
         item = subject.add(object, 19.99, 3)
-        item.should be created_object
+        expect(item).to be created_object
       end
     end
 
     context "item is not in cart" do
       before do
-        subject.stub(:item_for).with(object)
+        allow(subject).to receive(:item_for).with(object)
       end
 
       it "creates a new shopping cart item non-cumulatively" do
-        subject.shopping_cart_items.should_receive(:create).with(item: object, price: 19.99, quantity: 3)
+        expect(subject.shopping_cart_items).to receive(:create).with(item: object, price: 19.99, quantity: 3)
         subject.add(object, 19.99, 3, false)
       end
     end
 
     context "item is already on cart" do
       before do
-        subject.stub(:item_for).with(object).and_return(shopping_cart_item)
+        allow(subject).to receive(:item_for).with(object).and_return(shopping_cart_item)
       end
 
       it "updates the quantity for the item" do
-        shopping_cart_item.should_receive(:quantity=).with(5)
+        expect(shopping_cart_item).to receive(:quantity=).with(5)
         item = subject.add(object, 19.99, 3)
-        item.should be shopping_cart_item
+        expect(item).to be shopping_cart_item
       end
     end
 
     context "item is already in cart" do
       before do
-        subject.stub(:item_for).with(object).and_return(shopping_cart_item)
+        allow(subject).to receive(:item_for).with(object).and_return(shopping_cart_item)
       end
 
       it "updates the quantity for the item non-cumulatively" do
-        shopping_cart_item.should_receive(:quantity=).with(3) # not 5
+        expect(shopping_cart_item).to receive(:quantity=).with(3) # not 5
         subject.add(object, 19.99, 3, false)
       end
     end
@@ -72,29 +72,29 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
 
   describe :clear do
     before do
-      subject.shopping_cart_items.should_receive(:clear)
+      expect(subject.shopping_cart_items).to receive(:clear)
     end
 
     it "clears all the items in the cart" do
       subject.clear
-      subject.empty?.should be_true
+      expect(subject.empty?).to be true
     end
   end
 
   describe "empty?" do
     context "cart has items" do
       before do
-        subject.shopping_cart_items << mock
+        subject.shopping_cart_items << double
       end
 
       it "returns false" do
-        subject.empty?.should be_false
+        expect(subject.empty?).to be false
       end
     end
 
     context "cart is empty" do
       it "returns true" do
-        subject.empty?.should be_true
+        expect(subject.empty?).to be true
       end
     end
   end
@@ -102,7 +102,7 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
   describe :remove do
     context "item is not on cart" do
       before do
-        subject.stub(:item_for).with(object)
+        allow(subject).to receive(:item_for).with(object)
       end
 
       it "does nothing" do
@@ -112,19 +112,19 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
 
     context "item is on cart" do
       before do
-        subject.stub(:item_for).with(object).and_return(shopping_cart_item)
+        allow(subject).to receive(:item_for).with(object).and_return(shopping_cart_item)
       end
 
       context "remove less items than those on cart" do
         it "just updates the shopping cart item quantity" do
-          shopping_cart_item.should_receive(:quantity=).with(1)
+          expect(shopping_cart_item).to receive(:quantity=).with(1)
           subject.remove(object, 1)
         end
       end
 
       context "remove more items than those on cart" do
         it "removes the shopping cart item object completely" do
-          shopping_cart_item.should_receive(:delete)
+          expect(shopping_cart_item).to receive(:delete)
           subject.remove(object, 99)
         end
       end
@@ -134,82 +134,86 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
   describe :subtotal do
     context "cart has no items" do
       before do
-        subject.stub(:shopping_cart_items).and_return([])
+        allow(subject).to receive(:shopping_cart_items).and_return([])
       end
 
       it "returns 0" do
-        subject.subtotal.should be_an_instance_of(Money)
-        subject.subtotal.should eq(Money.new(0))
+        expect(subject.subtotal).to be_an_instance_of(Money)
+        expect(subject.subtotal).to eq(Money.new(0))
       end
     end
 
     context "cart has items" do
       before do
-        items = [stub(quantity: 2, price: Money.new(3399)), stub(quantity: 1, price: Money.new(4599))]
-        subject.stub(:shopping_cart_items).and_return(items)
+        items = [instance_double("item 1", quantity: 2, price: Money.new(3399)),
+                 instance_double("item 2", quantity: 1, price: Money.new(4599))]
+        allow(subject).to receive(:shopping_cart_items).and_return(items)
       end
 
       it "returns the sum of the price * quantity for all items" do
-        subject.subtotal.should be_an_instance_of(Money)
-        subject.subtotal.should eq(113.97)
+        expect(subject.subtotal).to be_an_instance_of(Money)
+        expect(subject.subtotal).to eq(113.97)
       end
     end
   end
 
   describe :shipping_cost do
     it "returns 0" do
-      subject.shipping_cost.should be_an_instance_of Money
-      subject.shipping_cost.should eq(0)
+      expect(subject.shipping_cost).to be_an_instance_of Money
+      expect(subject.shipping_cost).to eq(0)
     end
   end
 
   describe :taxes do
     context "subtotal is 100" do
       before do
-        subject.stub(:subtotal).and_return(Money.new(10_000))
+        allow(subject).to receive(:subtotal).and_return(Money.new(10_000))
       end
 
       it "returns 8.25" do
-        subject.taxes.should be_an_instance_of Money
-        subject.taxes.should eq(8.25)
+        expect(subject.taxes).to be_an_instance_of Money
+        expect(subject.taxes).to eq(8.25)
       end
     end
   end
 
   describe :tax_pct do
     it "returns 8.25" do
-      subject.tax_pct.should eq(8.25)
+      expect(subject.tax_pct).to eq(8.25)
     end
   end
 
   describe :total do
     before do
-      subject.stub(:subtotal).and_return(Money.new(1099))
-      subject.stub(:taxes).and_return(Money.new(1399))
-      subject.stub(:shipping_cost).and_return(Money.new(1299))
+      allow(subject).to receive_messages(
+        subtotal: Money.new(1099),
+        taxes: Money.new(1399),
+        shipping_cost: Money.new(1299)
+      )
     end
 
     it "returns subtotal + taxes + shipping_cost" do
-      subject.total.should be_an_instance_of Money
-      subject.total.should eq(37.97)
+      expect(subject.total).to be_an_instance_of Money
+      expect(subject.total).to eq(37.97)
     end
   end
 
   describe :total_unique_items do
     context "cart has no items" do
       it "returns 0" do
-        subject.total_unique_items.should eq(0)
+        expect(subject.total_unique_items).to eq(0)
       end
     end
 
     context "cart has some items" do
       before do
-        items = [stub(quantity: 2, price: 33.99), stub(quantity: 1, price: 45.99)]
-        subject.stub(:shopping_cart_items).and_return(items)
+        items = [instance_double("item 1", quantity: 2, price: 33.99),
+                 instance_double("item 2", quantity: 1, price: 45.99)]
+        allow(subject).to receive(:shopping_cart_items).and_return(items)
       end
 
       it "returns the sum of the quantities of all shopping cart items" do
-        subject.total_unique_items.should eq(3)
+        expect(subject.total_unique_items).to eq(3)
       end
     end
   end
