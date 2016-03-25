@@ -20,15 +20,14 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "rails", "~> 4"
-  s.add_dependency "money-rails", "~> 1.3"
+  s.add_dependency "money-rails"#, "~> 1.3"
 
-  s.add_development_dependency "cucumber", "~> 1.3.14"
+  s.add_development_dependency "cucumber"
   s.add_development_dependency "database_cleaner"
-  s.add_development_dependency "rake", "~> 10.0.0"
-  s.add_development_dependency "rspec", "~> 2.12.0"
-  s.add_development_dependency "sqlite3", "~> 1.3.0"
+  s.add_development_dependency "rake"
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "sqlite3"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "rubocop"
   s.add_development_dependency "codeclimate-test-reporter"
-
 end
