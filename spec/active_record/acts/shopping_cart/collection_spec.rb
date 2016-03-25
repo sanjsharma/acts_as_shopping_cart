@@ -170,7 +170,7 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
 
       it "returns the sum of the price * quantity for all items" do
         expect(subject.subtotal).to be_an_instance_of(Money)
-        expect(subject.subtotal).to eq(Money.new(11397))
+        expect(subject.subtotal).to eq(Money.new(11_397))
       end
     end
   end
