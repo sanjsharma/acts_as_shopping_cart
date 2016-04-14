@@ -28,16 +28,18 @@ module ActiveRecord
         #
         # Returns true when the cart has items
         #
-        def has_items?
+        def items?
           shopping_cart_items.any?
         end
+        alias :has_items? :items?
 
         #
         # Returns true when the cart is empty
         #
-        def has_no_items?
+        def no_items?
           shopping_cart_items.empty?
         end
+        alias :has_no_items? :no_items?
 
 
         #

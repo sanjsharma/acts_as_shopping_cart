@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.1
+
+- Renamed the items? methods to `items?` and `no_items?`
+
 ## 0.4.0
 
 - Updated dependencies to use it on Rails 5
