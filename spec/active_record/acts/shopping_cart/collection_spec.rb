@@ -206,7 +206,8 @@ describe ActiveRecord::Acts::ShoppingCart::Collection do
       allow(subject).to receive_messages(
         subtotal: Money.new(1099),
         taxes: Money.new(1399),
-        shipping_cost: Money.new(1299)
+        shipping_cost: Money.new(1299),
+        reload: nil
       )
     end
 
