@@ -82,6 +82,7 @@ module ActiveRecord
         # Returns the total by summing the subtotal, taxes and shipping_cost
         #
         def total
+          reload
           subtotal + taxes + shipping_cost
         end
 
