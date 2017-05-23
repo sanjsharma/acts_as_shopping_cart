@@ -1,8 +1,5 @@
 require "bundler/setup"
 
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
-
 require "active_record"
 require "database_cleaner"
 require "money-rails"
