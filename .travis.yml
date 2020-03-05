@@ -4,6 +4,8 @@ cache: bundler
 rvm:
   - 2.2.4
   - 2.3.2
+  - 2.5.7
+  - 2.6.5
 
 gemfile:
   - Gemfile.4.0
@@ -11,3 +13,4 @@ gemfile:
   - Gemfile.4.2
   - Gemfile.5.0
   - Gemfile.5.1
+  - Gemfile.6
