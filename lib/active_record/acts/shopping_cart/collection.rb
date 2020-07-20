@@ -14,7 +14,7 @@ module ActiveRecord
             cart_item.save
             cart_item
           else
-            shopping_cart_items.create(item: object, price: price, quantity: quantity)
+            shopping_cart_items.create(item: object, price: price, quantity: quantity, item_category_id: object.item_category_id)
           end
         end
 
@@ -26,21 +26,11 @@ module ActiveRecord
         end
 
         #
-        # Returns true when the cart has items
-        #
-        def items?
-          shopping_cart_items.any?
-        end
-        alias :has_items? :items?
-
-        #
         # Returns true when the cart is empty
         #
-        def no_items?
+        def empty?
           shopping_cart_items.empty?
         end
-        alias :has_no_items? :no_items?
-
 
         #
         # Remove an item from the cart
@@ -82,7 +72,6 @@ module ActiveRecord
         # Returns the total by summing the subtotal, taxes and shipping_cost
         #
         def total
-          reload
           subtotal + taxes + shipping_cost
         end
 
